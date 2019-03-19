@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="对于一个前端developer来说，chrome插件的开发非常简单，几个简单的文件就能轻松搞定。 插件的目录结构   1234567demo - js 页面所引用的javascript文件。   - popup.js   - qrcode.min.js - icon.png 显示图标。 - manifest.json 插件的配置文件，可看作插件的“入口”。 - popup.html 弹出页面。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Chrome插件开发Demo">
+<meta property="og:url" content="http://yoursite.com/2019/03/18/Chrome插件开发/index.html">
+<meta property="og:site_name" content="Xuyang&#39;s blog.">
+<meta property="og:description" content="对于一个前端developer来说，chrome插件的开发非常简单，几个简单的文件就能轻松搞定。 插件的目录结构   1234567demo - js 页面所引用的javascript文件。   - popup.js   - qrcode.min.js - icon.png 显示图标。 - manifest.json 插件的配置文件，可看作插件的“入口”。 - popup.html 弹出页面。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/chrome_extension.jpg">
+<meta property="og:updated_time" content="2019-03-19T09:23:29.411Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chrome插件开发Demo">
+<meta name="twitter:description" content="对于一个前端developer来说，chrome插件的开发非常简单，几个简单的文件就能轻松搞定。 插件的目录结构   1234567demo - js 页面所引用的javascript文件。   - popup.js   - qrcode.min.js - icon.png 显示图标。 - manifest.json 插件的配置文件，可看作插件的“入口”。 - popup.html 弹出页面。">
+<meta name="twitter:image" content="http://yoursite.com/images/chrome_extension.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/18/Chrome插件开发/">
+
+
+
+
+
+  <title>Chrome插件开发Demo | Xuyang's blog.</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Xuyang's blog.</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/18/Chrome插件开发/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xuyang Jia">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xuyang's blog.">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Chrome插件开发Demo</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-18T22:13:36+08:00">
+                2019-03-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="/images/chrome_extension.jpg" alt><br>对于一个前端developer来说，chrome插件的开发非常简单，几个简单的文件就能轻松搞定。</p>
+<h2 id="插件的目录结构"><a href="#插件的目录结构" class="headerlink" title="插件的目录结构"></a>插件的目录结构</h2>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">demo</span><br><span class="line"> - js 页面所引用的javascript文件。</span><br><span class="line">   - popup.js</span><br><span class="line">   - qrcode.min.js</span><br><span class="line"> - icon.png 显示图标。</span><br><span class="line"> - manifest.json 插件的配置文件，可看作插件的“入口”。</span><br><span class="line"> - popup.html 弹出页面。</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="创建一个目录-demo-，并在目录中创建配置文件manifest-json"><a href="#创建一个目录-demo-，并在目录中创建配置文件manifest-json" class="headerlink" title="创建一个目录(demo)，并在目录中创建配置文件manifest.json"></a>创建一个目录(demo)，并在目录中创建配置文件<strong>manifest.json</strong></h2>   <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"manifest_version"</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="attr">"name"</span>: <span class="string">"qrcode generator"</span>,</span><br><span class="line">    <span class="attr">"description"</span>: <span class="string">"二维码生成器"</span>,</span><br><span class="line">    <span class="attr">"version"</span>: <span class="string">"1.0"</span>,</span><br><span class="line">    <span class="attr">"browser_action"</span>: &#123;</span><br><span class="line">        <span class="attr">"default_icon"</span>: <span class="string">"icon.png"</span>,</span><br><span class="line">        <span class="attr">"default_popup"</span>: <span class="string">"popup.html"</span>,</span><br><span class="line">        <span class="attr">"default_title"</span>: <span class="string">"点这里生成当前页二维码！"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"content_security_policy"</span>: <span class="string">"script-src 'self'; object-src 'self'"</span>,</span><br><span class="line">    <span class="attr">"permissions"</span>: [<span class="string">"activeTab"</span>,<span class="string">"tabs"</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="创建弹出页面popup-html"><a href="#创建弹出页面popup-html" class="headerlink" title="创建弹出页面popup.html"></a>创建弹出页面<strong>popup.html</strong></h2>   <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"zh-CN"</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">title</span>&gt;</span>qrcode generator<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"js/qrcode.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"js/popup.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"width:150px; height:150px;"</span> <span class="attr">id</span>=<span class="string">"qrcode"</span>&gt;</span> <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="创建执行脚本popup-js"><a href="#创建执行脚本popup-js" class="headerlink" title="创建执行脚本popup.js"></a>创建执行脚本<strong>popup.js</strong></h2>   <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">load</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     <span class="built_in">window</span>.console.info(<span class="string">'ready.....'</span>);</span><br><span class="line"></span><br><span class="line">     <span class="comment">// 获取到当前激活态的 tab 对象</span></span><br><span class="line">     chrome.tabs.query(&#123;</span><br><span class="line">         <span class="string">"active"</span> : <span class="literal">true</span></span><br><span class="line">     &#125;, <span class="function"><span class="keyword">function</span>(<span class="params">tabArr</span>) </span>&#123;</span><br><span class="line">         <span class="keyword">var</span> tab = tabArr[<span class="number">0</span>];</span><br><span class="line">         <span class="built_in">window</span>.console.info(<span class="string">"title="</span> + tab.title);</span><br><span class="line">         <span class="built_in">window</span>.console.info(<span class="string">"url="</span> + tab.url);</span><br><span class="line"></span><br><span class="line">         <span class="keyword">var</span> qrcode = <span class="keyword">new</span> QRCode(<span class="built_in">document</span>.getElementById(<span class="string">"qrcode"</span>), &#123;</span><br><span class="line">             width : <span class="number">150</span>,</span><br><span class="line">             height : <span class="number">150</span>,</span><br><span class="line">             colorDark : <span class="string">"#000000"</span>,</span><br><span class="line">             colorLight : <span class="string">"#ffffff"</span>,</span><br><span class="line">             correctLevel : QRCode.CorrectLevel.H</span><br><span class="line">         &#125;);</span><br><span class="line"></span><br><span class="line">         qrcode.clear();</span><br><span class="line">         qrcode.makeCode(tab.url);</span><br><span class="line">     &#125;);</span><br><span class="line"> &#125;;</span><br><span class="line"> <span class="built_in">window</span>.onload = load();</span><br></pre></td></tr></table></figure>
+<p>   <strong>qrcode.min.js</strong>文件下载自<a href="http://davidshimjs.github.io/qrcodejs/" title="Cross-browser QRCode generator for javascript" target="_blank" rel="noopener">davidshimjs</a>.</p>
+<h2 id="验证插件是否可用"><a href="#验证插件是否可用" class="headerlink" title="验证插件是否可用"></a>验证插件是否可用</h2><p>   打开chrome扩展程序<strong><em>chrome://extensions/</em></strong>，选择<strong><em>开发者模式</em></strong>，选择<strong><em>已解压的扩展程序</em></strong>，选择demo目录，然后就看到插件<strong>二维码生成器</strong>已经成功加载了</p>
+<h2 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h2><p>   打开chrome扩展程序<strong><em>chrome://extensions/</em></strong>，选择<strong><em>开发者模式</em></strong>，选择<strong><em>打包扩展程序</em></strong>，如果打包失败，请根据错误提示信息修正，如果打包成功，会在与根目录同级的目录中生成CRX插件文件和PEM秘钥文件。</p>
+<h2 id="安装扩展程序"><a href="#安装扩展程序" class="headerlink" title="安装扩展程序"></a>安装扩展程序</h2><p>   打开chrome扩展程序<strong><em>chrome://extensions/</em></strong>，拖拽CRX文件进入到当前页面即可完成安装。</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a><a href="http://www.runoob.com/w3cnote/javascript-qrcodejs-library.html" target="_blank" rel="noopener">参考链接</a></h2>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/19/Pythoon爬虫Demo/" rel="prev" title="Pythoon爬虫Demo">
+                Pythoon爬虫Demo <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Xuyang Jia</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#插件的目录结构"><span class="nav-number">1.</span> <span class="nav-text">插件的目录结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建一个目录-demo-，并在目录中创建配置文件manifest-json"><span class="nav-number">2.</span> <span class="nav-text">创建一个目录(demo)，并在目录中创建配置文件manifest.json</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建弹出页面popup-html"><span class="nav-number">3.</span> <span class="nav-text">创建弹出页面popup.html</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建执行脚本popup-js"><span class="nav-number">4.</span> <span class="nav-text">创建执行脚本popup.js</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#验证插件是否可用"><span class="nav-number">5.</span> <span class="nav-text">验证插件是否可用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#打包"><span class="nav-number">6.</span> <span class="nav-text">打包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装扩展程序"><span class="nav-number">7.</span> <span class="nav-text">安装扩展程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考链接"><span class="nav-number">8.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xuyang Jia</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
