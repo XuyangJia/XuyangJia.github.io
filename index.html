@@ -267,7 +267,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">9</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">10</span></a>
 
   </li>
 
@@ -355,6 +355,408 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://xuyangjia.github.io/2019/05/20/批处理脚本教程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xuyang Jia">
+      <meta itemprop="description" content="Record something for review!">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xuyang's blog.">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/05/20/批处理脚本教程/" class="post-title-link" itemprop="url">批处理脚本教程</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-20 10:19:35" itemprop="dateCreated datePublished" datetime="2019-05-20T10:19:35+08:00">2019-05-20</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-27 18:23:21" itemprop="dateModified" datetime="2019-05-27T18:23:21+08:00">2019-05-27</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>该篇内容全部来自<strong>cheney</strong>的博客<a href="https://www.cnblogs.com/YangGC/p/6345551.html" target="_blank" rel="noopener"><strong>BAT 批处理脚本教程</strong></a><br>批处理文件是将一系列命令按一定的顺序集合为一个可执行的文本文件，其扩展名为BAT或者CMD。这些命令统称批处理命令。<br>PS: 在键盘上按下Ctrl+C组合键来强行终止一个批处理的执行过程。</p>
+<h1 id="批处理的常见命令（未列举的命令还比较多，请查阅帮助信息）"><a href="#批处理的常见命令（未列举的命令还比较多，请查阅帮助信息）" class="headerlink" title="批处理的常见命令（未列举的命令还比较多，请查阅帮助信息）"></a>批处理的常见命令（未列举的命令还比较多，请查阅帮助信息）</h1><ol>
+<li>REM 和 ::</li>
+<li>ECHO 和 @</li>
+<li>PAUSE</li>
+<li>ERRORLEVEL</li>
+<li>TITLE</li>
+<li>COLOR</li>
+<li>mode 配置系统设备</li>
+<li>GOTO 和 :</li>
+<li>FIND</li>
+<li>START</li>
+<li>assoc 和 ftype</li>
+<li>pushd 和 popd</li>
+<li>CALL</li>
+<li>shift</li>
+<li>IF</li>
+<li>setlocal 与 变量延迟</li>
+<li>ATTRIB  显示或更改文件属性</li>
+</ol>
+<h1 id="命令介绍"><a href="#命令介绍" class="headerlink" title="命令介绍"></a>命令介绍</h1><h2 id="1、REM-和"><a href="#1、REM-和" class="headerlink" title="1、REM 和 ::"></a>1、REM 和 ::</h2><p>REM为注释命令，一般用来给程序加上注解，该命令后的内容不被执行，但能回显。<br>其次, :: 也可以起到rem 的注释作用, 而且更简洁有效; 但有两点需要注意：<br>第一, 任何以冒号:开头的字符行, 在批处理中都被视作标号, 而直接忽略其后的所有内容。<br>有效标号：冒号后紧跟一个以字母数字开头的字符串，goto语句可以识别。<br>无效标号：冒号后紧跟一个非字母数字的一个特殊符号，goto无法识别的标号，可以起到注释作用，所以 :: 常被用作注释符号，其实 :+ 也可起注释作用。<br>第 二, 与rem 不同的是, ::后的字符行在执行时不会回显, 无论是否用echo on打开命令行回显状态, 因为命令解释器不认为他是一个有效的命令行, 就此点来看, rem 在某些场合下将比 :: 更为适用; 另外, rem 可以用于 config.sys 文件中。<br>行内注释格式：%注释内容%  （不常用，慎用）</p>
+<h2 id="ECHO-和"><a href="#ECHO-和" class="headerlink" title="ECHO 和 @"></a>ECHO 和 @</h2><p>@字符放在命令前将关闭该命令回显，无论此时echo是否为打开状态。<br>echo命令的作用列举如下：</p>
+<ol>
+<li>打开回显或关闭回显功能<br> 格式:echo [{ on|off }]<br> 如果想关闭“ECHO OFF”命令行自身的显示，则需要在该命令行前加上“@”。</li>
+<li>显示当前ECHO设置状态<br> 格式:echo</li>
+<li>输出提示信息<br> 格式：ECHO 信息内容<br> 上述是ECHO命令常见的三种用法，也是大家熟悉和会用的，但作为DOS命令淘金者你还应该知道下面的技巧：</li>
+<li>关闭DOS命令提示符<br> 在DOS提示符状态下键入ECHO OFF，能够关闭DOS提示符的显示使屏幕只留下光标，直至键入ECHO ON，提示符才会重新出现。</li>
+<li>输出空行，即相当于输入一个回车<br> 格式：ECHO．<br> 值得注意的是命令行中的“．”要紧跟在ECHO后面中间不能有空格，否则“．”将被当作提示信息输出到屏幕。另外“．”可以用，：；”／[]＋等任一符号替代。<br> 命令ECHO．输出的回车，经DOS管道转向可以作为其它命令的输入，比如echo.|time即相当于在TIME命令执行后给出一个回车。所以执行时系统会在显示当前时间后，自动返回到DOS提示符状态</li>
+<li>答复命令中的提问<br> 格式：ECHO 答复语|命令文件名</li>
+</ol>
+<h2 id="PAUSE"><a href="#PAUSE" class="headerlink" title="PAUSE"></a>PAUSE</h2><p>停止系统命令的执行并显示下面的内容。<br>eg：<br>PAUSE<br>运行显示：<br>请按任意键继续. . .<br>要显示其他提示语，可以这样用：<br>Echo 其他提示语 &amp; pause &gt; nul</p>
+<h2 id="ERRORLEVEL"><a href="#ERRORLEVEL" class="headerlink" title="ERRORLEVEL"></a>ERRORLEVEL</h2><p>程序返回码<br>echo %errorlevel%<br>每个命令运行结束，可以用这个命令行格式查看返回码<br>用于判断刚才的命令是否执行成功<br>默认值为0，一般命令执行出错会设 errorlevel 为1</p>
+<h2 id="TITLE"><a href="#TITLE" class="headerlink" title="TITLE"></a>TITLE</h2><p>设置cmd窗口的标题<br>title 新标题        #可以看到cmd窗口的标题栏变了</p>
+<h2 id="COLOR"><a href="#COLOR" class="headerlink" title="COLOR"></a>COLOR</h2><p>设置默认的控制台前景和背景颜色。<br>COLOR [attr]<br>  attr        指定控制台输出的颜色属性<br>颜色属性由两个十六进制数字指定 – 第一个为背景，第二个则为<br>前景。每个数字可以为以下任何值之一:</p>
+<table>
+<thead>
+<tr>
+<th>code</th>
+<th>color</th>
+<th>code</th>
+<th>color</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>黑色</td>
+<td>8</td>
+<td>灰色</td>
+</tr>
+<tr>
+<td>1</td>
+<td>蓝色</td>
+<td>9</td>
+<td>淡蓝色</td>
+</tr>
+<tr>
+<td>2</td>
+<td>绿色</td>
+<td>A</td>
+<td>淡绿色</td>
+</tr>
+<tr>
+<td>3</td>
+<td>湖蓝</td>
+<td>B</td>
+<td>淡浅绿色</td>
+</tr>
+<tr>
+<td>4</td>
+<td>红色</td>
+<td>C</td>
+<td>淡红色</td>
+</tr>
+<tr>
+<td>5</td>
+<td>紫色</td>
+<td>D</td>
+<td>淡紫色</td>
+</tr>
+<tr>
+<td>6</td>
+<td>黄色</td>
+<td>E</td>
+<td>淡黄色</td>
+</tr>
+<tr>
+<td>7</td>
+<td>白色</td>
+<td>F</td>
+<td>亮白色</td>
+</tr>
+</tbody>
+</table>
+<p>如果没有给定任何参数，该命令会将颜色还原到 CMD.EXE 启动时<br>的颜色。这个值来自当前控制台窗口、/T 开关或<br>DefaultColor 注册表值。<br>如果用相同的前景和背景颜色来执行 COLOR 命令，COLOR 命令<br>会将 ERRORLEVEL 设置为 1。<br>例如: “COLOR fc” 在亮白色上产生亮红色</p>
+<h2 id="MODE"><a href="#MODE" class="headerlink" title="MODE"></a>MODE</h2><p>配置系统设备。<br>串行口:　　　     MODE COMm[:] [BAUD=b] [PARITY=p] [DATA=d] [STOP=s]<br>                                [to=on|off] [xon=on|off] [odsr=on|off]<br>                                [octs=on|off] [dtr=on|off|hs]<br>                                [rts=on|off|hs|tg] [idsr=on|off]<br>设备状态:             MODE [device] [/STATUS]<br>打印重定向:　　 MODE LPTn[:]=COMm[:]<br>选定代码页:　　 MODE CON[:] CP SELECT=yyy<br>代码页状态:　　 MODE CON[:] CP [/STATUS]<br>显示模式:　　     MODE CON[:] [COLS=c] [LINES=n]<br>击键率:　             MODE CON[:] [RATE=r DELAY=d]<br>例：<br>mode con cols=113 lines=15 &amp; color 9f<br>此命令设置DOS窗口大小：15行，113列</p>
+<h2 id="GOTO-和"><a href="#GOTO-和" class="headerlink" title="GOTO 和 :"></a>GOTO 和 :</h2><p>批处理中允许以“:XXX”来构建一个标号，然后用GOTO XXX跳转到标号:XXX处，然后执行标号后的命令。<br>eg：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line">:start</span><br><span class="line"><span class="built_in">set</span> /a var+=1</span><br><span class="line"><span class="built_in">echo</span> %var%</span><br><span class="line"><span class="keyword">if</span> %var% leq 3 GOTO start</span><br><span class="line">pause</span><br></pre></td></tr></table></figure></p>
+<p>运行显示：<br>1<br>2<br>3<br>4</p>
+<h2 id="FIND"><a href="#FIND" class="headerlink" title="FIND"></a>FIND</h2><p>在文件中搜索字符串。<br>FIND [/V] [/C] [/N] [/I] [/OFF[LINE]] “string” [[drive:][path]filename[ …]]<br>   /V        显示所有未包含指定字符串的行。<br>   /C        仅显示包含字符串的行数。<br>   /N        显示行号。<br>   /I        搜索字符串时忽略大小写。<br>   /OFF[LINE] 不要跳过具有脱机属性集的文件。<br>   “string”   指定要搜索的文字串，<br>   [drive:][path]filename<br>         指定要搜索的文件。<br>如果没有指定路径，FIND 将搜索键入的或者由另一命令产生的文字。<br>Find常和type命令结合使用<br>Type [drive:][path]filename | find “string” [&gt;tmpfile] #挑选包含string的行<br>Type [drive:][path]filename | find /v “string” #剔除文件中包含string的行<br>Type [drive:][path]filename | find /c #显示文件行数<br>以上用法将去除find命令自带的提示语（文件名提示）<br>eg：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">echo</span> 111 &gt;test.txt</span><br><span class="line"><span class="built_in">echo</span> 222 &gt;&gt;test.txt</span><br><span class="line"><span class="built_in">type</span> test.txt|find <span class="string">"111"</span> </span><br><span class="line">del test.txt</span><br><span class="line">pause</span><br></pre></td></tr></table></figure></p>
+<p>运行显示如下：<br>111<br>请按任意键继续. . .</p>
+<h2 id="START"><a href="#START" class="headerlink" title="START"></a>START</h2><p>批处理中调用外部程序的命令（该外部程序在新窗口中运行，批处理程序继续往下执行，不理会外部程序的运行状况），如果直接运行外部程序则必须等外部程序完成后才继续执行剩下的指令<br>eg：start explorer d:\<br>调用图形界面打开D盘</p>
+<h2 id="ASSOC-和-FTYPE"><a href="#ASSOC-和-FTYPE" class="headerlink" title="ASSOC 和 FTYPE"></a>ASSOC 和 FTYPE</h2><p>文件关联<br>assoc 设置’文件扩展名’关联，关联到’文件类型’<br>ftype 设置’文件类型’关联，关联到’执行程序和参数’<br>当你双击一个.txt文件时，windows并不是根据.txt直接判断用 notepad.exe 打开<br>而是先判断.txt属于 txtfile ‘文件类型’<br>再调用 txtfile 关联的命令行 txtfile=%SystemRoot%\system32\NOTEPAD.EXE %1<br>可以在”文件夹选项”→”文件类型”里修改这2种关联<br>assoc           #显示所有’文件扩展名’关联<br>assoc .txt      #显示.txt代表的’文件类型’，结果显示 .txt=txtfile<br>assoc .doc      #显示.doc代表的’文件类型’，结果显示 .doc=Word.Document.8<br>assoc .exe      #显示.exe代表的’文件类型’，结果显示 .exe=exefile<br>ftype           #显示所有’文件类型’关联<br>ftype exefile   #显示exefile类型关联的命令行，结果显示 exefile=”%1” %*<br>assoc .txt=Word.Document.8<br>设置.txt为word类型的文档，可以看到.txt文件的图标都变了<br>assoc .txt=txtfile<br>恢复.txt的正确关联</p>
+<p>ftype exefile=”%1” %*<br>恢复 exefile 的正确关联<br>如果该关联已经被破坏，可以运行 command.com ，再输入这条命令</p>
+<h2 id="PUSHD-和-POPD"><a href="#PUSHD-和-POPD" class="headerlink" title="PUSHD 和 POPD"></a>PUSHD 和 POPD</h2><p>切换当前目录<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line">c: &amp; <span class="built_in">cd</span>\ &amp; md mp3       <span class="comment">#在 C:\ 建立 mp3 文件夹</span></span><br><span class="line">md d:\mp4               <span class="comment">#在 D:\ 建立 mp4 文件夹</span></span><br><span class="line"><span class="built_in">cd</span> /d d:\mp4            <span class="comment">#更改当前目录为 d:\mp4</span></span><br><span class="line"><span class="built_in">pushd</span> c:\mp3            <span class="comment">#保存当前目录，并切换当前目录为 c:\mp3</span></span><br><span class="line"><span class="built_in">popd</span>                    <span class="comment">#恢复当前目录为刚才保存的 d:\mp4</span></span><br></pre></td></tr></table></figure></p>
+<p>一般用处不大，在当前目录名不确定时，会有点帮助</p>
+<h2 id="CALL"><a href="#CALL" class="headerlink" title="CALL"></a>CALL</h2><p>CALL命令可以在批处理执行过程中调用另一个批处理，当另一个批处理执行完后，再继续执行原来的批处理<br>CALL command<br>调用一条批处理命令，和直接执行命令效果一样，特殊情况下很有用，比如变量的多级嵌套，见教程后面。在批处理编程中，可以根据一定条件生成命令字符串，用call可以执行该字符串，见例子。<br>CALL [drive:][path]filename [batch-parameters]<br>调用的其它批处理程序。filename 参数必须具有 .bat 或 .cmd 扩展名。<br>CALL :label arguments<br>调用本文件内命令段，相当于子程序。被调用的命令段以标签:label开头<br>以命令goto :eof结尾<br>另外，批脚本文本参数参照(%0、%1、等等)已如下改变:<br>     批脚本里的 %<em> 指出所有的参数(如 %1 %2 %3 %4 %5 …)<br>     批参数(%n)的替代已被增强。您可以使用以下语法:（看不明白的直接运行后面的例子）<br>         %~1         - 删除引号(“)，扩充 %1<br>         %~f1        - 将 %1 扩充到一个完全合格的路径名<br>         %~d1        - 仅将 %1 扩充到一个驱动器号<br>         %~p1        - 仅将 %1 扩充到一个路径<br>         %~n1        - 仅将 %1 扩充到一个文件名<br>         %~x1        - 仅将 %1 扩充到一个文件扩展名<br>         %~s1        - 扩充的路径指含有短名<br>         %~a1        - 将 %1 扩充到文件属性<br>         %~t1        - 将 %1 扩充到文件的日期/时间<br>         %~z1        - 将 %1 扩充到文件的大小<br>         %~$PATH : 1 - 查找列在 PATH 环境变量的目录，并将 %1<br>                       扩充到找到的第一个完全合格的名称。如果环境<br>                       变量名未被定义，或者没有找到文件，此组合键会<br>                       扩充到空字符串<br>    可以组合修定符来取得多重结果:<br>        %~dp1       - 只将 %1 扩展到驱动器号和路径<br>        %~nx1       - 只将 %1 扩展到文件名和扩展名<br>        %~dp$PATH:1 - 在列在 PATH 环境变量中的目录里查找 %1，<br>                       并扩展到找到的第一个文件的驱动器号和路径。<br>        %~ftza1     - 将 %1 扩展到类似 DIR 的输出行。<br>    在上面的例子中，%1 和 PATH 可以被其他有效数值替换。<br>%~ 语法被一个有效参数号码终止。%~ 修定符不能跟 %</em>使用<br>注意：参数扩充时不理会参数所代表的文件是否真实存在，均以当前目录进行扩展<br>要理解上面的知识，下面的例子很关键。<br>例：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line">Echo 产生一个临时文件 &gt; tmp.txt</span><br><span class="line">Rem 下行先保存当前目录，再将c:\windows设为当前目录</span><br><span class="line"><span class="built_in">pushd</span> c:\windows</span><br><span class="line">Call :sub tmp.txt</span><br><span class="line">Rem 下行恢复前次的当前目录</span><br><span class="line">Popd</span><br><span class="line">Call :sub tmp.txt</span><br><span class="line">pause</span><br><span class="line">Del tmp.txt</span><br><span class="line"><span class="built_in">exit</span></span><br><span class="line">:sub</span><br><span class="line">Echo 删除引号： %~1</span><br><span class="line">Echo 扩充到路径： %~f1</span><br><span class="line">Echo 扩充到一个驱动器号： %~d1</span><br><span class="line">Echo 扩充到一个路径： %~p1 </span><br><span class="line">Echo 扩充到一个文件名： %~n1</span><br><span class="line">Echo 扩充到一个文件扩展名： %~x1</span><br><span class="line">Echo 扩充的路径指含有短名： %~s1 </span><br><span class="line">Echo 扩充到文件属性： %~a1 </span><br><span class="line">Echo 扩充到文件的日期/时间： %~t1 </span><br><span class="line">Echo 扩充到文件的大小： %~z1 </span><br><span class="line">Echo 扩展到驱动器号和路径：%~dp1</span><br><span class="line">Echo 扩展到文件名和扩展名：%~nx1</span><br><span class="line">Echo 扩展到类似 DIR 的输出行：%~ftza1</span><br><span class="line">Echo.</span><br><span class="line">Goto :eof</span><br></pre></td></tr></table></figure></p>
+<p>例：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> aa=123456</span><br><span class="line"><span class="built_in">set</span> cmdstr=<span class="built_in">echo</span> %aa%</span><br><span class="line">call %cmdstr%</span><br><span class="line">pause</span><br></pre></td></tr></table></figure></p>
+<p>本例中如果不用call，而直接运行%cmdstr%，将显示结果%aa%，而不是123456</p>
+<h2 id="SHIFT"><a href="#SHIFT" class="headerlink" title="SHIFT"></a>SHIFT</h2><p>更改批处理文件中可替换参数的位置。<br>SHIFT [/n]<br>如果命令扩展名被启用，SHIFT 命令支持/n 命令行开关；该命令行开关告诉<br>命令从第 n 个参数开始移位；n 介于零和八之间。例如:<br>    SHIFT /2<br>会将 %3 移位到 %2，将 %4 移位到 %3，等等；并且不影响 %0 和 %1。</p>
+<h2 id="IF"><a href="#IF" class="headerlink" title="IF"></a>IF</h2><p>IF 条件判断语句，语法格式如下：<br>IF [NOT] ERRORLEVEL number command<br>IF [NOT] string1==string2 command<br>IF [NOT] EXIST filename command<br>下面逐一介绍，更详细的分析请看后面章节。</p>
+<p>(1) IF [NOT] ERRORLEVEL number command<br>IF ERRORLEVEL这个句子必须放在某一个命令的后面，执行命令后由IF ERRORLEVEL 来判断命令的返回值。<br>Number的数字取值范围0~255，判断时值的排列顺序应该由大到小。返回的值大于等于指定的值时，条件成立<br>例：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line">dir c:</span><br><span class="line">rem退出代码为&gt;=1就跳至标题1处执行，&gt;=0就跳至标题0处执行</span><br><span class="line">IF ERRORLEVEL 1 goto 1</span><br><span class="line">IF ERRORLEVEL 0 goto 0</span><br><span class="line">Rem 上面的两行不可交换位置，否则失败了也显示成功。</span><br><span class="line">:0</span><br><span class="line"><span class="built_in">echo</span> 命令执行成功！</span><br><span class="line">Rem 程序执行完毕跳至标题<span class="built_in">exit</span>处退出</span><br><span class="line">goto <span class="built_in">exit</span></span><br><span class="line">:1</span><br><span class="line"><span class="built_in">echo</span> 命令执行失败！</span><br><span class="line">Rem 程序执行完毕跳至标题<span class="built_in">exit</span>处退出</span><br><span class="line">goto <span class="built_in">exit</span></span><br><span class="line">:<span class="built_in">exit</span></span><br><span class="line">pause</span><br></pre></td></tr></table></figure></p>
+<p>运行显示：命令执行成功！<br>(2) IF [NOT] string1==string2 command<br>string1和string2都为字符的数据，英文内字符的大小写将看作不同，这个条件中的等于号必须是两个（绝对相等的意思）<br>条件相等后即执行后面的command<br>检测当前变量的值做出判断，为了防止字符串中含有空格，可用以下格式<br>if [NOT] {string1}=={string2} command<br>if [NOT] [string1]==[string2] command<br>if [NOT] “string1”==”string2” command<br>这种写法实际上将括号或引号当成字符串的一部分了，只要等号左右两边一致就行了，比如下面的写法就不行：<br>if {string1}==[string2] command</p>
+<p>(3) IF [NOT] EXIST filename command<br>EXIST filename为文件或目录存在的意思<br>echo off<br>IF EXIST autoexec.bat echo 文件存在！<br>IF not EXIST autoexec.bat echo 文件不存在！<br>这个批处理大家可以放在C盘和D盘分别执行，看看效果</p>
+<h2 id="SETLOCAL-与-变量延迟"><a href="#SETLOCAL-与-变量延迟" class="headerlink" title="SETLOCAL 与 变量延迟"></a>SETLOCAL 与 变量延迟</h2><p>例1:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">set</span> a=4</span><br><span class="line"><span class="built_in">set</span> a=5 &amp; <span class="built_in">echo</span> %a%</span><br><span class="line">pause</span><br></pre></td></tr></table></figure></p>
+<p>结果：4<br>解说：为什么是4而不是5呢？在echo之前明明已经把变量a的值改成5了？<br>让我们先了解一下批处理运行命令的机制：<br>批处理读取命令时是按行读取的（另外例如for命令等，其后用一对圆括号闭合的所有语句也当作一行），在处理之前要完成必要的预处理工作，这其中就包括对该 行命令中的变量赋值。我们现在分析一下例1，批处理在运行到这句“set a=5 &amp; echo %a%”之前，先把这一句整句读取并做了预处理——对变量a赋了值，那么%a%当然就是4了！（没有为什么，批处理就是这样做的。）<br>而为了能够感知环境变量的动态变化，批处理设计了变量延迟。简单来说，在读取了一条完整的语句之后，不立即对该行的变量赋值，而会在某个单条语句执行之前再进行赋值，也就是说“延迟”了对变量的赋值。<br>那么如何开启变量延迟呢？变量延迟又需要注意什么呢？举个例子说明一下：<br>例2:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line">setlocal enabledelayedexpansion</span><br><span class="line"><span class="built_in">set</span> a=4</span><br><span class="line"><span class="built_in">set</span> a=5 &amp; <span class="built_in">echo</span> !a!</span><br><span class="line">pause</span><br></pre></td></tr></table></figure></p>
+<p>结果：5<br>解说：启动了变量延迟，得到了正确答案。变量延迟的启动语句是“setlocal enabledelayedexpansion”，并且变量要用一对叹号“!!”括起来（注意要用英文的叹号），否则就没有变量延迟的效果。<br>分析一下例2，首先“setlocal enabledelayedexpansion”开启变量延迟，然后“set a=4”先给变量a赋值为<br>4，“set a=5 &amp; echo !a!”这句是给变量a赋值为5并输出（由于启动了变量延迟，所以批处理能够感知到动态变化，即不是先给该行变量赋值，而是在运行过程中给变量赋值，因此此时a的值就是5了）。<br>再举一个例子巩固一下。<br>例3:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line">setlocal enabledelayedexpansion</span><br><span class="line"><span class="keyword">for</span> /l %%i <span class="keyword">in</span> (1,1,5) <span class="keyword">do</span> (</span><br><span class="line"><span class="built_in">set</span> a=%%i</span><br><span class="line"><span class="built_in">echo</span> !a!</span><br><span class="line">)</span><br><span class="line">pause</span><br></pre></td></tr></table></figure></p>
+<p>结果：<br>1<br>2<br>3<br>4<br>5<br>解说：本例开启了变量延迟并用“!!”将变量扩起来，因此得到我们预期的结果。如果不用变量延迟会出现什<br>么结果呢？结果是这样的：<br>ECHO 处于关闭状态。<br>ECHO 处于关闭状态。<br>ECHO 处于关闭状态。<br>ECHO 处于关闭状态。<br>ECHO 处于关闭状态。<br>即没有感知到for语句中的动态变化。<br>PS：在没有开启变量延迟的情况下，某条命令行中的变量改变，必须到下一条命令才能体现。这一点也可以加以利用，看例子。<br>例：交换两个变量的值，且不用中间变量<br>@echo off<br>::目的：交换两个变量的值，但是不使用临时变量<br>::Code by JM 2007-1-24 [email=CMD@XP]CMD@XP[/email]<br>::出处：<a href="http://www.cn-dos.net/forum/viewthread.php?tid=27078" target="_blank" rel="noopener">http://www.cn-dos.net/forum/viewthread.php?tid=27078</a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> var1=abc</span><br><span class="line"><span class="built_in">set</span> var2=123</span><br><span class="line"><span class="built_in">echo</span> 交换前： var1=%var1% var2=%var2%</span><br><span class="line"><span class="built_in">set</span> var1=%var2%&amp; <span class="built_in">set</span> var2=%var1%</span><br><span class="line"><span class="built_in">echo</span> 交换后： var1=%var1% var2=%var2%</span><br><span class="line">pause</span><br></pre></td></tr></table></figure></p>
+<h2 id="ATTRIB-显示或更改文件属性"><a href="#ATTRIB-显示或更改文件属性" class="headerlink" title="ATTRIB  显示或更改文件属性"></a>ATTRIB  显示或更改文件属性</h2><p>ATTRIB [+R|-R] [+A|-A] [+S|-S] [+H|-H] [[drive:] [path] filename] [/S [/D]]</p>
+<ul>
+<li>设置属性。</li>
+</ul>
+<ul>
+<li>清除属性。<br>R   只读文件属性。<br>A   存档文件属性。<br>S   系统文件属性。<br>H   隐藏文件属性。<br>[drive:][path][filename]<br>指定要处理的文件属性。<br>/S  处理当前文件夹及其子文件夹中的匹配文件。<br>/D  也处理文件夹。</li>
+</ul>
+<p>例：<br>md autorun<br>attrib +a +s +h autorun<br>上面的命令将建立文件夹autorun，然后将其设为存档、系统、隐藏属性</p>
+<h1 id="常用特殊符号"><a href="#常用特殊符号" class="headerlink" title="常用特殊符号"></a>常用特殊符号</h1><ol>
+<li>@  命令行回显屏蔽符</li>
+<li>%  批处理变量引导符</li>
+<li>>   重定向符</li>
+<li>>&gt;  重定向符</li>
+<li>&lt;、&gt;&amp;、&lt;&amp; 重定向符</li>
+<li>|  命令管道符</li>
+<li>^  转义字符</li>
+<li>&amp;  组合命令</li>
+<li>&amp;&amp; 组合命令</li>
+<li>||  组合命令</li>
+<li>“”  字符串界定符</li>
+<li>, 逗号</li>
+<li>; 分号</li>
+<li>() 括号</li>
+<li>! 感叹号</li>
+<li>批处理中可能会见到的其它特殊标记符: （略）<br>CR(0D) 命令行结束符<br>Escape(1B) ANSI转义字符引导符<br>Space(20) 常用的参数界定符<br>Tab(09) ; = 不常用的参数界定符<br>+ COPY命令文件连接符<br>* ? 文件通配符<br>/ 参数开关引导符<br>: 批处理标签引导符</li>
+</ol>
+<h2 id="命令行回显屏蔽符"><a href="#命令行回显屏蔽符" class="headerlink" title="@  命令行回显屏蔽符"></a>@  命令行回显屏蔽符</h2><p>这个字符在批处理中的意思是关闭当前行的回显。我们从前几课知道<br>ECHO OFF可以关闭掉整个批处理命令的回显，但不能关掉ECHO OFF这个命令，现在我们在ECHO OFF这个命令前加个@，就可以达到所有命令均不回显的要求</p>
+<h2 id="批处理变量引导符"><a href="#批处理变量引导符" class="headerlink" title="%  批处理变量引导符"></a>%  批处理变量引导符</h2><p>这个百分号严格来说是算不上命令的，它只是批处理中的参数而已（多个%一起使用的情况除外，以后还将详细介绍）。<br>引用变量用%var%，调用程序外部参数用%1至%9等等<br>%0  %1  %2  %3  %4  %5  %6  %7  %8  %9  %<em>为命令行传递给批处理的参数<br>%0 批处理文件本身，包括完整的路径和扩展名<br>%1 第一个参数<br>%9 第九个参数<br>%</em> 从第一个参数开始的所有参数<br>参数%0具有特殊的功能，可以调用批处理自身，以达到批处理本身循环的目的，也可以复制文件自身等等。<br>例：最简单的复制文件自身的方法<br>copy %0 d:\wind.bat<br>小技巧：添加行内注释<br>%注释内容%（可以用作行内注释，不能出现重定向符号和管道符号）<br>为什么这样呢？此时“注释内容”其实被当作变量，其值是空的，故只起注释作用，不过这种用法容易出现语法错误，一般不用。</p>
+<h2 id="gt-重定向符"><a href="#gt-重定向符" class="headerlink" title="&gt;   重定向符"></a>&gt;   重定向符</h2><p>输出重定向命令<br>DOS的标准输入输出通常是在标准设备键盘和显示器上进行的，利用重定向,可以方便地将输入输出改向磁盘文件或其它设备。其中:<br>1.大于号“&gt;”将命令发送到文件或设备，例如打印机&gt;prn。使用大于号“&gt;”时，有些命令输出(例如错误消息)不能重定向。<br>2.双大于号“&gt;&gt;”将命令输出添加到文件结尾而不删除文件中已有的信息。<br>3.小于号“&lt;”从文件而不是键盘上获取命令所需的输入。<br>4.&gt;&amp;符号将输出从一个默认I/O流(stdout,stdin,stderr)重新定向到另一个默认I/O流。<br>例如，command &gt;output_file 2&gt;&amp;1将处理command过程中的所有错误信息从屏幕重定向到标准文件输出中。标准输出的数值如下所示：<br><strong>命令重定向的标准句柄</strong></p>
+<table>
+<thead>
+<tr>
+<th>句柄名称</th>
+<th>值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>STDIN</td>
+<td>0</td>
+<td>标准输入，发送自键盘</td>
+</tr>
+<tr>
+<td>STDUOT</td>
+<td>1</td>
+<td>标准输出，发送到命令Shell窗口</td>
+</tr>
+<tr>
+<td>STDERR</td>
+<td>2</td>
+<td>标准错误输出，发送到命令Shell窗口</td>
+</tr>
+<tr>
+<td>UNDEFINED</td>
+<td>3~9</td>
+<td>特定于应用程序的句柄</td>
+</tr>
+</tbody>
+</table>
+<p>这个字符的意思是传递并且覆盖，他所起的作用是将运行的结果传递到后面的范围（后边可以是文件，也可以是默认的系统控制台）<br>在NT系列命令行中，重定向的作用范围由整个命令行转变为单个命令语句，受到了命令分隔符&amp;,&amp;&amp;,||和语句块的制约限制。<br>比如：<br>使用命令：echo hello &gt;1.txt将建立文件1.txt，内容为”hello “（注意行尾有一空格）<br>使用命令：echo hello&gt;1.txt将建立文件1.txt，内容为”hello“（注意行尾没有空格）：<br>具体重定向实例请看我的另外一篇文章：<a href="http://www.cnblogs.com/mq0036/p/3431484.html" target="_blank" rel="noopener">DOS的重定向命令及在安全方面的应用</a></p>
+<h2 id="gt-gt-重定向符"><a href="#gt-gt-重定向符" class="headerlink" title="&gt;&gt;  重定向符"></a>&gt;&gt;  重定向符</h2><p>输出重定向命令<br>这个符号的作用和&gt;有点类似，但他们的区别是&gt;&gt;是传递并在文件的末尾追加，而&gt;是覆盖<br>用法同上<br>同样拿1.txt做例子<br>使用命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> hello &gt; 1.txt</span><br><span class="line"><span class="built_in">echo</span> world &gt;&gt;1.txt</span><br></pre></td></tr></table></figure></p>
+<p>这时候1.txt 内容如下:<br>hello<br>world</p>
+<h2 id="lt-、-gt-amp-、-lt-amp-重定向符"><a href="#lt-、-gt-amp-、-lt-amp-重定向符" class="headerlink" title="&lt;、&gt;&amp;、&lt;&amp; 重定向符"></a>&lt;、&gt;&amp;、&lt;&amp; 重定向符</h2><p>这三个命令也是管道命令，但它们一般不常用，你只需要知道一下就ok了，当然如果想仔细研究的话，可以自己查一下资料。(本人已查过，网上也查不到相关资料)<br>&lt;，输入重定向命令，从文件中读入命令输入，而不是从键盘中读入。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">echo</span> 2005-05-01&gt;temp.txt</span><br><span class="line">date &lt;temp.txt</span><br><span class="line">del temp.txt</span><br></pre></td></tr></table></figure></p>
+<p>这样就可以不等待输入直接修改当前日期<br>>&amp;，将一个句柄的输出写入到另一个句柄的输入中。<br>&lt;&amp;，刚好和&gt;&amp;相反，从一个句柄读取输入并将其写入到另一个句柄输出中。<br>常用句柄：0、1、2，未定义句柄：3—9<br>1&gt;nul 表示禁止输出正确的信息<br>2&gt;nul 表示禁止输出错误信息。<br>其中的1与2都是代表某个数据流输入输出的地址（NT CMD 称之为句柄，MSDOS称之为设备）。<br>句柄0：标准输入stdin，键盘输入<br>句柄1：标准输出stdout，输出到命令提示符窗口（console，代码为CON）<br>句柄2：标准错误stderr，输出到命令提示符窗口（console，代码为CON）<br>其中的stdin可被&lt;重定向，stdout可被&gt;、&gt;&gt;重定向。<br>我们已经知道读取文本中的内容可以用for命令，但如果只需要读取第一行用for命令就有点麻烦。简单的办法如下:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">set</span> /p str=&lt;%0</span><br><span class="line"><span class="built_in">echo</span> %str%</span><br><span class="line">pause</span><br></pre></td></tr></table></figure></p>
+<p>运行显示批处理文件自身的第一行：@echo off</p>
+<h2 id="命令管道符"><a href="#命令管道符" class="headerlink" title="|  命令管道符"></a>|  命令管道符</h2><p>格式：第一条命令 | 第二条命令 [| 第三条命令…]<br>将第一条命令的结果作为第二条命令的参数来使用，记得在unix中这种方式很常见。<br>例如：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dir c:\|find <span class="string">"txt"</span></span><br></pre></td></tr></table></figure></p>
+<p>以上命令是：查找C：\所有，并发现TXT字符串。<br>FIND的功能请用 FIND /? 自行查看<br>在不使format的自动格式化参数时，我是这样来自动格式化A盘的<br>echo y|format a: /s /q /v:system<br>用过format的都知道，再格盘时要输入y来确认是否格盘，这个命令前加上echo y并用|字符来将echo y的结果传给format命令<br>从而达到自动输入y的目的<br>（这条命令有危害性，测试时请慎重）</p>
+<h2 id="转义字符"><a href="#转义字符" class="headerlink" title="^  转义字符"></a>^  转义字符</h2><p>^是对特殊符号&lt;,&gt;,&amp;的前导字符，在命令中他将以上3个符号的特殊功能去掉，仅仅只把他们当成符号而不使用他们的特殊意义。<br>比如<br>echo test ^&gt;1.txt<br>结果则是：test &gt; 1.txt<br>他没有追加在1.txt里，呵呵。只是显示了出来<br>另外，此转义字符还可以用作续行符号。<br>举个简单的例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">echo</span> This ^</span><br><span class="line">is ^</span><br><span class="line">a ^</span><br><span class="line">line.</span><br><span class="line">pause</span><br></pre></td></tr></table></figure></p>
+<p>为什么转义字符放在行尾可以起到续行符的作用呢？原因很简单，因为每行末尾还有一个看不见的符号，即回车符，转义字符位于行尾时就让回车符失效了，从而起到了续行的作用。</p>
+<h2 id="amp-组合命令"><a href="#amp-组合命令" class="headerlink" title="&amp; 组合命令"></a>&amp; 组合命令</h2><p>语法：第一条命令 &amp; 第二条命令 [&amp; 第三条命令…]<br>&amp;、&amp;&amp;、||为组合命令，顾名思义，就是可以把多个命令组合起来当一个命令来执行。这在批处理脚本里是允许的，而且用的非常广泛。因为批处理认行不认命令数目。<br>这个符号允许在一行中使用2个以上不同的命令，当第一个命令执行失败了，也不影响后边的命令执行。<br>这里&amp;两边的命令是顺序执行的，从前往后执行。<br>比如：<br>dir z:\ &amp; dir y:\ &amp; dir c:\<br>以上命令会连续显示z,y,c盘的内容，不理会该盘是否存在</p>
+<h2 id="amp-amp-组合命令"><a href="#amp-amp-组合命令" class="headerlink" title="&amp;&amp; 组合命令"></a>&amp;&amp; 组合命令</h2><p>语法：第一条命令 &amp;&amp; 第二条命令 [&amp;&amp; 第三条命令…]<br>用这种方法可以同时执行多条命令，当碰到执行出错的命令后将不执行后面的命令，如果一直没有出错则一直执行完所有命令<br>这个命令和上边的类似，但区别是，第一个命令失败时，后边的命令也不会执行<br>dir z:\ &amp;&amp; dir y:\ &amp;&amp; dir c:\</p>
+<h2 id="组合命令"><a href="#组合命令" class="headerlink" title="||  组合命令"></a>||  组合命令</h2><p>语法：第一条命令 || 第二条命令 [|| 第三条命令…]<br>用这种方法可以同时执行多条命令，当一条命令失败后才执行第二条命令，当碰到执行正确的命令后将不执行后面的命令，如果没有出现正确的命令则一直执行完所有命令；<br>PS：组合命令和重定向命令一起使用必须注意优先级<br>管道命令的优先级高于重定向命令，重定向命令的优先级高于组合命令<br>问题：把C盘和D盘的文件和文件夹列出到a.txt文件中。看例：<br>dir c:\ &amp;&amp; dir d:\ &gt; a.txt<br>这 样执行后a.txt里只有D盘的信息！为什么？因为组合命令的优先级没有重定向命令的优先级高！所以这句在执行时将本行分成这两部分：dir c:\和dir d:\ &gt; a.txt，而并不是如你想的这两部分：dir c:\ &amp;&amp; dir d:\和&gt; a.txt。要使用组合命令&amp;&amp;达到题目的要求，必须得这么写：<br>dir c:\ &gt; a.txt &amp;&amp; dir d:\ &gt;&gt; a.txt<br>这样，依据优先级高低，DOS将把这句话分成以下两部分：dir c:\ &gt; a.txt和dir d:\ &gt;&gt; a.txt。例十八中的几句的差别比较特殊，值得好好研究体会一下。<br>当然这里还可以利用&amp;命令（自己想一下道理哦）：<br>dir c:\ &gt; a.txt &amp; dir d:\ &gt;&gt; a.txt<br>[这个也可以用 dir c:\;d:\ &gt;&gt;a.txt 来实现]</p>
+<h2 id="“”-字符串界定符"><a href="#“”-字符串界定符" class="headerlink" title="“”  字符串界定符"></a>“”  字符串界定符</h2><p>双引号允许在字符串中包含空格，进入一个特殊目录可以用如下方法<br>cd “program files”<br>cd progra~1<br>cd pro*<br>以上三种方法都可以进入program files这个目录</p>
+<h2 id="逗号"><a href="#逗号" class="headerlink" title=", 逗号"></a>, 逗号</h2><p>逗号相当于空格，在某些情况下“,”可以用来当做空格使<br>比如<br>dir,c:\</p>
+<h2 id="分号"><a href="#分号" class="headerlink" title="; 分号"></a>; 分号</h2><p>分号，当命令相同时，可以将不同目标用；来隔离，但执行效果不变，如执行过程中发生错误，则只返回错误报告，但程序仍会执行。（有人说不会继续执行，其实测试一下就知道了，只不过它的执行有个规则，请看下面的规则）<br>比如：<br>dir c:\;d:\;e:\;z:\<br>以上命令相当于<br>dir c:\<br>dir d:\<br>dir e:\<br>dir f:\</p>
+<h2 id="括号"><a href="#括号" class="headerlink" title="() 括号"></a>() 括号</h2><p>小括号在批处理编程中有特殊的作用，左右括号必须成对使用，括号中可以包括多行命令，这些命令将被看成一个整体，视为一条命令行。<br>    括号在for语句和if语句中常见，用来嵌套使用循环或条件语句，其实括号()也可以单独使用，请看例子。<br>例：<br>命令：echo 1 &amp; echo 2 &amp; echo 3<br>可以写成：<br>(<br>echo 1<br>echo 2<br>echo 3<br>)<br>上面两种写法效果一样，这两种写法都被视为是一条命令行。<br>注意：这种多条命令被视为一条命令行时，如果其中有变量，就涉及到变量延迟的问题。</p>
+<h2 id="感叹号"><a href="#感叹号" class="headerlink" title="! 感叹号"></a>! 感叹号</h2><p>在变量延迟问题中，用来表示变量，即%var%应该表示为!var!</p>
+<h1 id="DOS循环：for命令详解"><a href="#DOS循环：for命令详解" class="headerlink" title="DOS循环：for命令详解"></a>DOS循环：for命令详解</h1><h2 id="基本格式"><a href="#基本格式" class="headerlink" title="基本格式"></a>基本格式</h2><p>FOR %%variable IN (set) DO command [command-parameters]<br>  %%variable  指定一个单一字母表示可替换的参数。<br>  (set)      指定一个或一组文件。可以使用通配符。<br>  command    指定对每个文件执行的命令。<br>  command-parameters 为特定命令指定参数或命令行开关。</p>
+<p>参数:FOR有4个参数 /d   /l   /r   /f   作用如下：</p>
+<h2 id="参数-d"><a href="#参数-d" class="headerlink" title="参数 /d"></a>参数 /d</h2><p>FOR /D %%variable IN (set) DO command [command-parameters]<br>    如果集中包含通配符，则指定与目录名匹配，而不与文件<br>    名匹配。<br>如果 Set (也就是我上面写的 “相关文件或命令”) 包含通配符（* 和 ?），将对与 Set 相匹配的每个目录（而不是指定目录中的文件组）执行指定的 Command。<br>这个参数主要用于目录搜索,不会搜索文件,看这样的例子<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="keyword">for</span> /d %%i <span class="keyword">in</span> (c:\*) <span class="keyword">do</span> <span class="built_in">echo</span> %%i</span><br><span class="line">pause</span><br></pre></td></tr></table></figure></p>
+<p>运行会把C盘根目录下的全部目录名字打印出来,而文件名字一个也不显示!<br>在来一个,比如我们要把当前路径下文件夹的名字只有1-3个字母的打出来<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="keyword">for</span> /d %%i <span class="keyword">in</span> (???) <span class="keyword">do</span> <span class="built_in">echo</span> %%i</span><br><span class="line">pause</span><br></pre></td></tr></table></figure></p>
+<p>这样的话如果你当前目录下有目录名字只有1-3个字母的,就会显示出来,没有就不显示了<br>这里解释下<em>号和?号的作用,</em>号表示任意N个字符,而?号只表示任意一个字符<br>知道作用了,给大家个思考题目!<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="keyword">for</span> /d %%i <span class="keyword">in</span> (window?) <span class="keyword">do</span> <span class="built_in">echo</span> %%i</span><br><span class="line">pause</span><br></pre></td></tr></table></figure></p>
+<p>保存到C盘下执行,会显示什么呢?自己看吧! 显示：windows<br>/D参数只能显示当前目录下的目录名字,这个大家要注意!</p>
+<h2 id="参数-R"><a href="#参数-R" class="headerlink" title="参数 /R"></a>参数 /R</h2><p>FOR /R [[drive:]path] %%variable IN (set) DO command [command-parameters]<br>    检查以 [drive:]path 为根的目录树，指向每个目录中的<br>    FOR 语句。如果在 /R 后没有指定目录，则使用当前<br>目录。如果集仅为一个单点(.)字符，则枚举该目录树。</p>
+<p>递归<br>上面我们知道,/D只能显示当前路径下的目录名字,那么现在这个/R也是和目录有关,他能干嘛呢?放心他比/D强大多了!<br>他可以把当前或者你指定路径下的文件名字全部读取,注意是文件名字,有什么用看例子!<br>请注意2点：<br>    1、set中的文件名如果含有通配符(？或*)，则列举/R参数指定的目录及其下面的所用子目录中与set相符合的所有文件，无相符文件的目录则不列举。<br>    2、相反，如果set中为具体文件名，不含通配符，则枚举该目录树（即列举该目录及其下面的所有子目录），而不管set中的指定文件是否存在。这与前面所说的单点（.）枚举目录树是一个道理，单点代表当前目录，也可视为一个文件。<br>例：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="keyword">for</span> /r c:\ %%i <span class="keyword">in</span> (*.exe) <span class="keyword">do</span> <span class="built_in">echo</span> %%i</span><br><span class="line">pause</span><br></pre></td></tr></table></figure></p>
+<p>咱们把这个BAT保存到D盘随便哪里然后执行,我会就会看到,他把C盘根目录,和每个目录的子目录下面全部的EXE文件都列出来了!!!!<br>例：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="keyword">for</span> /r %%i <span class="keyword">in</span> (*.exe) <span class="keyword">do</span> @<span class="built_in">echo</span> %%i</span><br><span class="line">pause</span><br></pre></td></tr></table></figure></p>
+<p>参数不一样了吧!这个命令前面没加那个C:\也就是搜索路径,这样他就会以当前目录为搜索路径,比如你这个BAT你把他放在d:\test目录下执行,那么他就会把D:\test目录和他下面的子目录的全部EXE文件列出来!!!<br>例：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="keyword">for</span> /r c:\ %%i <span class="keyword">in</span> (boot.ini) <span class="keyword">do</span> <span class="built_in">echo</span> %%i</span><br><span class="line">pause</span><br></pre></td></tr></table></figure></p>
+<p>运行本例发现枚举了c盘所有目录，为了只列举boot.ini存在的目录，可改成下面这样：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="keyword">for</span> /r c:\ %%i <span class="keyword">in</span> (boot.ini) <span class="keyword">do</span> <span class="keyword">if</span> exist %%i <span class="built_in">echo</span> %%i</span><br><span class="line">pause</span><br></pre></td></tr></table></figure></p>
+<h2 id="参数-L"><a href="#参数-L" class="headerlink" title="参数 /L"></a>参数 /L</h2><p>FOR /L %%variable IN (start,step,end) DO command [command-parameters]<br>    该集表示以增量形式从开始到结束的一个数字序列。<br>    因此，(1,1,5) 将产生序列 1 2 3 4 5，(5,-1,1) 将产生<br>    序列 (5 4 3 2 1)。<br>使 用迭代变量设置起始值 (Start#)，然后逐步执行一组范围的值，直到该值超过所设置的终止值 (End#)。/L 将通过对 Start# 与 End# 进行比较来执行迭代变量。如果 Start# 小于 End#，就会执行该命令。如果迭代变量超过 End#，则命令解释程序退出此循环。还可以使用负的 Step# 以递减数值的方式逐步执行此范围内的值。例如，(1,1,5) 生成序列 1 2 3 4 5，而 (5,-1,1) 则生成序列 (5 4 3 2 1)。语法是：<br>看着这说明有点晕吧!咱们看例子就不晕了!<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="keyword">for</span> /l %%i <span class="keyword">in</span> (1,1,5) <span class="keyword">do</span> @<span class="built_in">echo</span> %%i</span><br><span class="line">pause</span><br></pre></td></tr></table></figure></p>
+<p>保存执行看效果,他会打印从1 2 3 4 5  这样5个数字<br>(1,1,5)这个参数也就是表示从1开始每次加1直到5终止!<br>等会晕,就打印个数字有P用…好的满足大家,看这个例子<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="keyword">for</span> /l %%i <span class="keyword">in</span> (1,1,5) <span class="keyword">do</span> start cmd</span><br><span class="line">pause</span><br></pre></td></tr></table></figure></p>
+<p>执行后是不是吓了一跳,怎么多了5个CMD窗口,呵呵!如果把那个 (1,1,5)改成 (1,1,65535)会有什么结果,我先告诉大家,会打开65535个CMD窗口….这么多你不死机算你强!<br>当然我们也可以把那个start cmd改成md %%i 这样就会建立指定个目录了!!!名字为1-65535<br>看完这个被我赋予破坏性质的参数后,我们来看最后一个参数</p>
+<h2 id="参数-F"><a href="#参数-F" class="headerlink" title="参数 /F"></a>参数 /F</h2><p>\迭代及文件解析<br>使用文件解析来处理命令输出、字符串及文件内容。使用迭代变量定义要检查的内容或字符串，并使用各种options选项进一步修改解析方式。使用options令牌选项指定哪些令牌应该作为迭代变量传递。请注意：在没有使用令牌选项时，/F 将只检查第一个令牌。<br>文件解析过程包括读取输出、字符串或文件内容，将其分成独立的文本行以及再将每行解析成零个或更多个令牌。然后通过设置为令牌的迭代变量值，调用 for 循环。默认情况下，/F 传递每个文件每一行的第一个空白分隔符号。跳过空行。</p>
+<p>详细的帮助格式为：<br>FOR /F [“options”] %%variable IN (file-set) DO command [command-parameters]<br>FOR /F [“options”] %%variable IN (“string”) DO command [command-parameters]<br>FOR /F [“options”] %%variable IN (‘command’) DO command [command-parameters]<br>    带引号的字符串”options”包括一个或多个<br>    指定不同解析选项的关键字。这些关键字为:<br>        eol=c           - 指一个行注释字符的结尾(就一个)(备注：默认以使用；号为行首字符的为注释行)<br>        skip=n          - 指在文件开始时忽略的行数，(备注：最小为1，n可以大于文件的总行数，默认为1。)<br>        delims=xxx      - 指分隔符集。这个替换了空格和跳格键的默认分隔符集。<br>        tokens=x,y,m-n  - 指每行的哪一个符号被传递到每个迭代<br>                          的 for 本身。这会导致额外变量名称的分配。m-n<br>                          格式为一个范围。通过 nth 符号指定 mth。如果<br>                          符号字符串中的最后一个字符星号，<br>                          那么额外的变量将在最后一个符号解析之后<br>                          分配并接受行的保留文本。经测试，该参数最多<br>                          只能区分31个字段。(备注：默认为1，则表示只显示分割后的第一列的内容，最大是31，超过最大则无法表示)<br>        usebackq        - 使用后引号（键盘上数字1左面的那个键`）。<br>                        未使用参数usebackq时：file-set表示文件，但不能含有空格<br>                            双引号表示字符串，即”string”<br>                            单引号表示执行命令，即<strong>command</strong><br>                          使用参数usebackq时：file-set和”file-set”都表示文件<br>                          当文件路径或名称中有空格时，就可以用双引号括起来<br>                            单引号表示字符串，即’string’<br>                            后引号表示命令执行，即<strong>command</strong></p>
+<p>以上是用for /?命令获得的帮助信息，直接复制过来的，括号中的备注为我添加的说明。<br>晕惨了!我这就举个例子帮助大家来理解这些参数!</p>
+<p>For命令例1：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line">rem 首先建立临时文件test.txt</span><br><span class="line"><span class="built_in">echo</span> ;注释行,这是临时文件,用完删除 &gt;test.txt</span><br><span class="line"><span class="built_in">echo</span> 11段 12段 13段 14段 15段 16段 &gt;&gt;test.txt</span><br><span class="line"><span class="built_in">echo</span> 21段,22段,23段,24段,25段,26段 &gt;&gt;test.txt</span><br><span class="line"><span class="built_in">echo</span> 31段-32段-33段-34段-35段-36段 &gt;&gt;test.txt</span><br><span class="line">FOR /F <span class="string">"eol=; tokens=1,3* delims=,- "</span> %%i <span class="keyword">in</span> (test.txt) <span class="keyword">do</span> <span class="built_in">echo</span> %%i %%j %%k</span><br><span class="line">Pause</span><br><span class="line">Del test.txt</span><br></pre></td></tr></table></figure></p>
+<p>运行显示结果：<br>11段 13段 14段 15段 16段<br>21段 23段 24段,25段,26段<br>31段 33段 34段-35段-36段<br>请按任意键继续. . .<br>为什么会这样?我来解释：<br>eol=;          分号开头的行为注释行<br>tokens=1,3*    将每行第1段,第3段和剩余字段分别赋予变量%%i，%%j，%%k<br>delims=,-     （减号后有一空格）以逗号减号和空格为分隔符，空格必须放在最后</p>
+<p>For命令例2：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line">FOR /F <span class="string">"eol= delims="</span> %%i <span class="keyword">in</span> (test.txt) <span class="keyword">do</span> <span class="built_in">echo</span> %%i</span><br><span class="line">Pause</span><br></pre></td></tr></table></figure></p>
+<p>运行将显示test.txt全部内容，包括注释行，不解释了哈。</p>
+<p>For命令例3：<br>另外/F参数还可以以输出命令的结果看这个例子<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line">FOR /F <span class="string">"delims="</span> %%i <span class="keyword">in</span> (<span class="string">'net user'</span>) <span class="keyword">do</span> @<span class="built_in">echo</span> %%i</span><br><span class="line">pause</span><br></pre></td></tr></table></figure></p>
+<p>这样你本机全部帐号名字就出来了把扩号内的内容用两个单引号引起来就表示那个当命令执行,FOR会返回命令的每行结果,加那个”delims=” 是为了让我空格的行能整行显示出来,不加就只显示空格左边一列!</p>
+<h1 id="FOR命令中的变量"><a href="#FOR命令中的变量" class="headerlink" title="FOR命令中的变量"></a>FOR命令中的变量</h1><p>FOR命令中的部分变量:<br>     ~I          - 删除任何引号(“)，扩展 %I<br>     %~fI        - 将 %I 扩展到一个完全合格的路径名<br>     %~dI        - 仅将 %I 扩展到一个驱动器号<br>     %~pI        - 仅将 %I 扩展到一个路径<br>     %~nI        - 仅将 %I 扩展到一个文件名<br>     %~xI        - 仅将 %I 扩展到一个文件扩展名<br>     %~sI        - 扩展的路径只含有短名<br>     %~aI        - 将 %I 扩展到文件的文件属性<br>     %~tI        - 将 %I 扩展到文件的日期/时间<br>     %~zI        - 将 %I 扩展到文件的大小<br>     %~$PATH:I   - 查找列在路径环境变量的目录，并将 %I 扩展<br>                   到找到的第一个完全合格的名称。如果环境变量名<br>                   未被定义，或者没有找到文件，此组合键会扩展到<br>                   空字符串</p>
+<p>我们可以看到每行都有一个大写字母”I”,这个I其实就是我们在FOR带入的变量,我们FOR语句代入的变量名是什么,这里就写什么.<br>比如:FOR /F  %%z IN (‘set’) DO @echo %%z<br>这里我们代入的变量名是z那么我们就要把那个I改成z,例如%~fI改为%~fz<br>至于前面的%~p这样的内容就是语法了!</p>
+<h2 id="I-删除任何引号-“-，扩展-I"><a href="#I-删除任何引号-“-，扩展-I" class="headerlink" title="~I          - 删除任何引号(“)，扩展 %I"></a>~I          - 删除任何引号(“)，扩展 %I</h2><p>这个变量的作用就如他的说明,删除引号!<br>我们来看这个例子:<br>首先建立临时文件temp.txt，内容如下<br>“1111<br>“2222”<br>3333”<br>“4444”44<br>“55”55”55<br>可建立个BAT文件代码如下:<br>@echo off<br>echo ^”1111&gt;temp.txt<br>echo “2222”&gt;&gt;temp.txt<br>echo 3333^”&gt;&gt;temp.txt<br>echo “4444”44&gt;&gt;temp.txt<br>echo ^”55”55”55&gt;&gt;temp.txt<br>rem 上面建立临时文件，注意不成对的引号要加转义字符^，重定向符号前不要留空格<br>FOR /F “delims=” %%i IN (temp.txt) DO echo  %%~i<br>pause<br>del temp.txt<br>执行后,我们看CMD的回显如下:<br>1111           #字符串前的引号被删除了<br>2222           #字符串首尾的引号都被删除了<br>3333”          #字符串前无引号，后面的引号保留<br>4444”44        #字符串前面的引号删除了，而中间的引号保留<br>55”55”55       #字符串前面的引号删除了，而中间的引号保留<br>请按任意键继续. . .<br>和之前temp.txt中的内容对比一下,我们会发现第1、2、5行的引号都消失了,这就是删除引号~i的作用了!<br>删除引号规则如下(BAT兄补充!)<br>1、若字符串首尾同时存在引号，则删除首尾的引号；<br>2、若字符串尾不存在引号，则删除字符串首的引号；<br>3、如果字符串中间存在引号，或者只在尾部存在引号，则不删除。<br>龙卷风补充：无头不删，有头连尾删。</p>
+<h2 id="fI-将-I-扩展到一个完全合格的路径名"><a href="#fI-将-I-扩展到一个完全合格的路径名" class="headerlink" title="%~fI        - 将 %I 扩展到一个完全合格的路径名"></a>%~fI        - 将 %I 扩展到一个完全合格的路径名</h2><p>看例子:<br>把代码保存放在随便哪个地方,我这里就放桌面吧.<br>FOR /F “delims==” %%i IN (‘dir /b’) DO @echo  %%~fi<br>pause<br>执行后显示内容如下<br>C:\Documents and Settings\Administrator\桌面\test.bat<br>C:\Documents and Settings\Administrator\桌面\test.vbs<br>当我把代码中的 %%~fi直接改成%%i<br>FOR /F “delims==” %%i IN (‘dir /b’) DO @echo  %%i<br>pause<br>执行后就会显示以下内容：<br>test.bat<br>test.vbs<br>通过对比,我们很容易就看出没有路径了,这就是”将 %I 扩展到一个完全合格的路径名”的作用<br>也就是如果%i变量的内容是一个文件名的话,他就会把这个文件所在的绝对路径打印出来,而不只单单打印一个文件名,自己动手动实验下就知道了!</p>
+<h2 id="dI-仅将-I-扩展到一个驱动器号"><a href="#dI-仅将-I-扩展到一个驱动器号" class="headerlink" title="%~dI        - 仅将 %I 扩展到一个驱动器号"></a>%~dI        - 仅将 %I 扩展到一个驱动器号</h2><p>看例子:<br>代码如下,我还是放到桌面执行!<br>FOR /F “delims==” %%i IN (‘dir /b’) DO @echo  %%~di<br>pause<br>执行后我CMD里显示如下<br>C:<br>C:<br>我桌面就两个文件test.bat,test.vbs,%%~di作用是,如果变量%%i的内容是一个文件或者目录名,他就会把他这文件<br>或者目录所在的盘符号打印出来!</p>
+<h2 id="pI-仅将-I-扩展到一个路径"><a href="#pI-仅将-I-扩展到一个路径" class="headerlink" title="%~pI        - 仅将 %I 扩展到一个路径"></a>%~pI        - 仅将 %I 扩展到一个路径</h2><p>这个用法和上面一样,他只打印路径不打印文件名字<br>FOR /F “delims==” %%i IN (‘dir /b’) DO @echo  %%~pi<br>pause<br>我就不打结果了,大家自己复制代码看结果吧,下面几个都是这么个用法,代码给出来,大家自己看结果吧!</p>
+<h2 id="nI-仅将-I-扩展到一个文件名"><a href="#nI-仅将-I-扩展到一个文件名" class="headerlink" title="%~nI        - 仅将 %I 扩展到一个文件名"></a>%~nI        - 仅将 %I 扩展到一个文件名</h2><p>只打印文件名字<br>FOR /F “delims==” %%i IN (‘dir /b’) DO @echo  %%~ni<br>pause</p>
+<h2 id="xI-仅将-I-扩展到一个文件扩展名"><a href="#xI-仅将-I-扩展到一个文件扩展名" class="headerlink" title="%~xI        - 仅将 %I 扩展到一个文件扩展名"></a>%~xI        - 仅将 %I 扩展到一个文件扩展名</h2><p>只打印文件的扩展名<br>FOR /F “delims==” %%i IN (‘dir /b’) DO @echo  %%~xi<br>pause</p>
+<h2 id="sI-扩展的路径只含有短名"><a href="#sI-扩展的路径只含有短名" class="headerlink" title="%~sI        - 扩展的路径只含有短名"></a>%~sI        - 扩展的路径只含有短名</h2><p>打印绝对短文件名<br>FOR /F “delims==” %%i IN (‘dir /b’) DO @echo  %%~si<br>pause</p>
+<h2 id="aI-将-I-扩展到文件的文件属性"><a href="#aI-将-I-扩展到文件的文件属性" class="headerlink" title="%~aI        - 将 %I 扩展到文件的文件属性"></a>%~aI        - 将 %I 扩展到文件的文件属性</h2><p>打印文件的属性<br>FOR /F “delims==” %%i IN (‘dir /b’) DO @echo  %%~ai<br>pause</p>
+<h2 id="tI-将-I-扩展到文件的日期-时间"><a href="#tI-将-I-扩展到文件的日期-时间" class="headerlink" title="%~tI        - 将 %I 扩展到文件的日期/时间"></a>%~tI        - 将 %I 扩展到文件的日期/时间</h2><p>打印文件建立的日期<br>FOR /F “delims==” %%i IN (‘dir /b’) DO @echo  %%~ti<br>pause</p>
+<h2 id="zI-将-I-扩展到文件的大小"><a href="#zI-将-I-扩展到文件的大小" class="headerlink" title="%~zI        - 将 %I 扩展到文件的大小"></a>%~zI        - 将 %I 扩展到文件的大小</h2><p>打印文件的大小<br>FOR /F “delims==” %%i IN (‘dir /b’) DO @echo  %%~zi<br>pause<br>上面例子中的”delims==”可以改为”delims=”，即不要分隔符</p>
+<h2 id="PATH-I-查找列在路径环境变量的目录"><a href="#PATH-I-查找列在路径环境变量的目录" class="headerlink" title="%~$PATH:I - 查找列在路径环境变量的目录"></a>%~$PATH:I - 查找列在路径环境变量的目录</h2><p>并将 %I 扩展到找到的第一个完全合格的名称。如果环境变量名未被定义，或者没有找到文件，此组合键会扩展到空字符串<br>这是最后一个,和上面那些都不一样,我单独说说!</p>
+<p>然后在把这些代码保存为批处理,放在桌面。<br>@echo off<br>FOR /F “delims=” %%i IN (“notepad.exe”) DO echo  %%~$PATH:i<br>pause<br>龙卷风补充：上面代码显示结果为C:\WINDOWS\system32\notepad.exe<br>他的意思就在PATH变量里指定的路径里搜索notepad.exe文件，如果有notepad.exe则会把他所在绝对路径打印出来，没有就打印一个错误！</p>
+<h1 id="批处理中的变量"><a href="#批处理中的变量" class="headerlink" title="批处理中的变量"></a>批处理中的变量</h1><h2 id="系统变量"><a href="#系统变量" class="headerlink" title="系统变量"></a>系统变量</h2><p>他们的值由系统将其根据事先定义的条件自动赋值,也就是这些变量系统已经给他们定义了值,<br>不需要我们来给他赋值,我们只需要调用而以!  我把他们全部列出来!</p>
+<p>%ALLUSERSPROFILE% 本地 返回“所有用户”配置文件的位置。<br>%APPDATA% 本地 返回默认情况下应用程序存储数据的位置。<br>%CD% 本地 返回当前目录字符串。<br>%CMDCMDLINE% 本地 返回用来启动当前的 Cmd.exe 的准确命令行。<br>%CMDEXTVERSION% 系统 返回当前的“命令处理程序扩展”的版本号。<br>%COMPUTERNAME%  系统 返回计算机的名称。<br>%COMSPEC%  系统 返回命令行解释器可执行程序的准确路径。<br>%DATE%  系统 返回当前日期。使用与 date /t 命令相同的格式。由 Cmd.exe 生成。有关<br>date 命令的详细信息，请参阅 Date。<br>%ERRORLEVEL%  系统 返回上一条命令的错误代码。通常用非零值表示错误。<br>%HOMEDRIVE%  系统 返回连接到用户主目录的本地工作站驱动器号。基于主目录值而设置。用<br>户主目录是在“本地用户和组”中指定的。<br>%HOMEPATH%  系统 返回用户主目录的完整路径。基于主目录值而设置。用户主目录是在“本地用户和组”中指定的。<br>%HOMESHARE%  系统 返回用户的共享主目录的网络路径。基于主目录值而设置。用户主目录是<br>在“本地用户和组”中指定的。<br>%LOGONSERVER%  本地 返回验证当前登录会话的域控制器的名称。<br>%NUMBER_OF_PROCESSORS%  系统 指定安装在计算机上的处理器的数目。<br>%OS%  系统 返回操作系统名称。Windows 2000 显示其操作系统为 Windows_NT。<br>%PATH% 系统 指定可执行文件的搜索路径。<br>%PATHEXT% 系统 返回操作系统认为可执行的文件扩展名的列表。<br>%PROCESSOR_ARCHITECTURE%  系统 返回处理器的芯片体系结构。值：x86 或 IA64 基于<br>Itanium<br>%PROCESSOR_IDENTFIER% 系统 返回处理器说明。<br>%PROCESSOR_LEVEL%  系统 返回计算机上安装的处理器的型号。<br>%PROCESSOR_REVISION% 系统 返回处理器的版本号。<br>%PROMPT% 本地 返回当前解释程序的命令提示符设置。由 Cmd.exe 生成。<br>%RANDOM% 系统 返回 0 到 32767 之间的任意十进制数字。由 Cmd.exe 生成。<br>%SYSTEMDRIVE% 系统 返回包含 Windows server operating system 根目录（即系统根目录）<br>的驱动器。<br>%SYSTEMROOT%  系统 返回 Windows server operating system 根目录的位置。<br>%TEMP% 和 %TMP% 系统和用户 返回对当前登录用户可用的应用程序所使用的默认临时目录。<br>有些应用程序需要 TEMP，而其他应用程序则需要 TMP。<br>%TIME% 系统 返回当前时间。使用与 time /t 命令相同的格式。由 Cmd.exe 生成。有关<br>time 命令的详细信息，请参阅 Time。<br>%USERDOMAIN% 本地 返回包含用户帐户的域的名称。<br>%USERNAME% 本地 返回当前登录的用户的名称。<br>%USERPROFILE% 本地 返回当前用户的配置文件的位置。<br>%WINDIR% 系统 返回操作系统目录的位置。</p>
+<p>这么多系统变量,我们如何知道他的值是什么呢?<br>在CMD里输入  echo %WINDIR%<br>这样就能显示一个变量的值了!<br>举个实际例子,比如我们要复制文件到当前帐号的启动目录里就可以这样<br>copy d:\1.bat “%USERPROFILE%\「开始」菜单\程序\启动\”<br>%USERNAME% 本地 返回当前登录的用户的名称。  注意有空格的目录要用引号引起来</p>
+<p>另外还有一些系统变量,他们是代表一个意思,或者一个操作!<br>他们分别是%0 %1 %2 %3 %4 %5 ……一直到%9 还有一个%*<br>%0 这个有点特殊,有几层意思,先讲%1-%9的意思.<br>%1 返回批处理的第一个参数<br>%2 返回批处理的第二个参数<br>%3-%9依此推类<br>反回批处理参数?到底怎么个返回法?<br>我们看这个例子,把下面的代码保存为test.BAT然后放到C盘下<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">echo</span> %1 %2 %3 %4</span><br><span class="line"><span class="built_in">echo</span> %1</span><br><span class="line"><span class="built_in">echo</span> %2</span><br><span class="line"><span class="built_in">echo</span> %3</span><br><span class="line"><span class="built_in">echo</span> %4</span><br></pre></td></tr></table></figure></p>
+<p>进入CMD,输入cd c:\<br>然后输入 test.bat 我是第一个参数 我是第二个参数  我是第三个参数  我是第四个参数<br>注意中间的空格,我们会看到这样的结果:<br>我是第一个参数 我是第二个参数 我是第三个参数 我是第四个参数<br>我是第一个参数<br>我是第二个参数<br>我是第三个参数<br>我是第四个参数<br>对比下代码,%1就是”我是第一个参数”  %2就是”我是第二个参数”<br>怎么样理解了吧!</p>
+<p>这些%1和%9可以让批处理也能带参数运行,大大提高批处理功能!</p>
+<p>还有一个%*  他是什么呢?他的作用不是很大,只是返回参数而已,不过他是一次返回全部参数的值,不用在输入%1 %2来确定一个个的</p>
+<p>例子<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">echo</span> %*</span><br></pre></td></tr></table></figure></p>
+<p>同样保存为test.bat 放到C盘<br>进入CMD,输入cd c:\<br>然后输入 test.bat 我是第一个参数 我是第二个参数  我是第三个参数  我是第四个参数<br>可以看到他一次把全部参数都显示出来了</p>
+<p>好现在开始讲那个比较特殊的%0</p>
+<p>%0  这个不是返回参数的值了,他有两层意思!<br>第一层意思:返回批处理所在绝对路径<br>例子:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">echo</span> %0</span><br><span class="line">pause</span><br></pre></td></tr></table></figure></p>
+<p>保存为test.BAT放在桌面运行,会显示如下结果<br>“C:\Documents and Settings\Administrator\桌面\test.bat”<br>他把当前批处理执行的所在路经打印出来了,这就是返回批处理所在绝对路径的意思<br>第二层意思:无限循环执行BAT<br>例子:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line">net user</span><br><span class="line">%0</span><br></pre></td></tr></table></figure></p>
+<p>保存为BAT执行,他就会无限循环执行net user这条命令,直到你手动停止.<br>龙卷风补充：其实%0就是第一参数%1前面那个参数，当然就是批处理文件名（包括路径）。</p>
+<h2 id="自定义变量"><a href="#自定义变量" class="headerlink" title="自定义变量"></a>自定义变量</h2><p>故名思意,自定义变量就是由我们来给他赋予值的变量<br>要使用自定义变量就得使用set命令了,看例子.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">set</span> var=我是值</span><br><span class="line"><span class="built_in">echo</span> %var%</span><br><span class="line">pause</span><br></pre></td></tr></table></figure></p>
+<p>保存为BAT执行,我们会看到CMD里返回一个  “我是值”<br>var为变量名,=号右变的是要给变量的值<br>这就是最简单的一种设置变量的方法了<br>如果我们想让用户手工输入变量的值,而不是在代码里指定,可以用用set命令的/p参数<br>例子:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">set</span> /p var=请输入变量的值</span><br><span class="line"><span class="built_in">echo</span> %var%</span><br><span class="line">pause</span><br></pre></td></tr></table></figure></p>
+<p>var变量名  =号右边的是提示语,不是变量的值<br>变量的值由我们运行后自己用键盘输入! </p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://xuyangjia.github.io/2019/05/17/npm安装robotjs报错/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -400,12 +802,24 @@
                 
               
 
-              <time title="创建时间：2019-05-17 16:11:39 / 修改时间：16:24:05" itemprop="dateCreated datePublished" datetime="2019-05-17T16:11:39+08:00">2019-05-17</time>
+              <time title="创建时间：2019-05-17 16:11:39" itemprop="dateCreated datePublished" datetime="2019-05-17T16:11:39+08:00">2019-05-17</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-20 10:14:43" itemprop="dateModified" datetime="2019-05-20T10:14:43+08:00">2019-05-20</time>
               
             
           </span>
@@ -2144,7 +2558,7 @@ table th:first-of-type {
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2198,7 +2612,9 @@ table th:first-of-type {
                     
                       
                     
-                    <span class="site-state-item-count">6</span>
+                      
+                    
+                    <span class="site-state-item-count">7</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
