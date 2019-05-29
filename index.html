@@ -267,7 +267,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">10</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">11</span></a>
 
   </li>
 
@@ -339,6 +339,233 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://xuyangjia.github.io/2019/05/29/Node爬虫 - Crawler/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xuyang Jia">
+      <meta itemprop="description" content="Record something for review!">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xuyang's blog.">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/05/29/Node爬虫 - Crawler/" class="post-title-link" itemprop="url">Node爬虫 - Crawler</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-29 14:05:31 / 修改时间：15:27:30" itemprop="dateCreated datePublished" datetime="2019-05-29T14:05:31+08:00">2019-05-29</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Javascript/" itemprop="url" rel="index"><span itemprop="name">Javascript</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Crawler介绍"><a href="#Crawler介绍" class="headerlink" title="Crawler介绍"></a>Crawler介绍</h1><p>crawler 是一个轻量级的node.js爬虫工具，兼顾了高效与便利性，支持分布式爬虫系统，支持硬编码，支持http前级代理。<br>crawler 完全由nodejs写成，天生支持非阻塞异步IO，为爬虫的流水线作业机制提供了极大便利。同时支持对 DOM 的快速选择，对于抓取网页的特定部分的任务可以说是杀手级功能，无需再手写正则表达式，提高爬虫开发效率。</p>
+<h1 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h1><ol>
+<li>DOM 元素快速解析 &amp; 符合jQuery语法的选择器功能(默认使用Cheerio，支持更换为 JSDOM 等其它DOM解析器)</li>
+<li>支持连接池模式，并发数和重连数均可配置</li>
+<li>支持请求队列的优先权（即不同URL的请求能有不同的优先级）</li>
+<li>支持延时功能（某些服务器对每分钟内连接数有限制）</li>
+<li>支持 forceUTF8 模式以应对复杂的编码问题，当然你也可以自己为不同的连接设置编码</li>
+<li>支持4.x及更高版本的Nodejs</li>
+</ol>
+<h1 id="使用实例"><a href="#使用实例" class="headerlink" title="使用实例"></a>使用实例</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Crawler = <span class="built_in">require</span>(<span class="string">'crawler'</span>)</span><br><span class="line"><span class="keyword">const</span> c = <span class="keyword">new</span> Crawler(&#123;</span><br><span class="line">  maxConnections: <span class="number">5</span>, <span class="comment">// 最大并发数(默认为10)</span></span><br><span class="line">  rateLimit: <span class="number">1000</span>, <span class="comment">// 两次请求之间将闲置1000ms 可通过rateLimit设置慢速模式</span></span><br><span class="line">  <span class="comment">// 在每个请求处理完毕后将调用此回调函数</span></span><br><span class="line">  callback: <span class="function">(<span class="params">error, res, done</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (error) &#123;</span><br><span class="line">      <span class="keyword">throw</span> error</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> $ = res.$ <span class="comment">// $ 默认为Cheerio解析器, 它是核心jQuery的精简实现，可以按照jQuery选择器语法快速提取DOM元素</span></span><br><span class="line">    <span class="built_in">console</span>.log($(<span class="string">'title'</span>).text())</span><br><span class="line">    done()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 将一个URL加入请求队列，并使用默认回调函数</span></span><br><span class="line">c.queue(<span class="string">'https://movie.douban.com/'</span>)</span><br><span class="line"><span class="comment">// 将多个URL加入请求队列</span></span><br><span class="line">c.queue([<span class="string">'https://www.baidu.com/'</span>,<span class="string">'https://movie.douban.com/'</span>])</span><br><span class="line"><span class="comment">// 对单个URL使用特定的处理参数并指定单独的回调函数</span></span><br><span class="line">c.queue([&#123;</span><br><span class="line">    uri: <span class="string">'http://parishackers.org/'</span>,</span><br><span class="line">    jQuery: <span class="literal">false</span>,</span><br><span class="line">    <span class="comment">// The global callback won't be called</span></span><br><span class="line">    callback: <span class="function">(<span class="params">error, res, done</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(error)&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(error)</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'Grabbed'</span>, res.body.length, <span class="string">'bytes'</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        done()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;]);</span><br><span class="line"><span class="comment">// 将一段HTML代码加入请求队列，即不通过抓取，直接交由回调函数处理（可用于单元测试）</span></span><br><span class="line">c.queue([&#123;</span><br><span class="line">    html: <span class="string">'&lt;p&gt;This is a &lt;strong&gt;test&lt;/strong&gt;&lt;/p&gt;'</span></span><br><span class="line">&#125;])</span><br></pre></td></tr></table></figure>
+<h1 id="自定义参数"><a href="#自定义参数" class="headerlink" title="自定义参数"></a>自定义参数</h1><p>Crawler 允许自定义参数，所有参数均存储在res.options，并可在callback函数中获得。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Crawler = <span class="built_in">require</span>(<span class="string">'crawler'</span>)</span><br><span class="line"><span class="keyword">const</span> c = <span class="keyword">new</span> Crawler(&#123;</span><br><span class="line">  maxConnections: <span class="number">10</span>,</span><br><span class="line">  callback: <span class="function">(<span class="params">error, res, done</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (error) &#123;</span><br><span class="line">      <span class="keyword">throw</span> error</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> $ = res.$</span><br><span class="line">    <span class="built_in">console</span>.log($(<span class="string">'title'</span>).text())</span><br><span class="line">    <span class="comment">// 获取输入的自定义参数并打印。</span></span><br><span class="line">    <span class="built_in">console</span>.log(res.options.param)</span><br><span class="line">    done()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">c.queue(&#123;</span><br><span class="line">  uri: <span class="string">'https://movie.douban.com/'</span>,</span><br><span class="line">  param: <span class="string">'parameter'</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h1 id="使用http代理"><a href="#使用http代理" class="headerlink" title="使用http代理"></a>使用http代理</h1><p>Crawler 支持http代理，以应对在极端情况下，爬虫运行的节点IP可能无法访问服务器的情况。代理服务器输入格式需要符合 RFC1738 规范，即 scheme://user:pass@host:port 的形式。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Crawler = <span class="built_in">require</span>(<span class="string">'crawler'</span>)</span><br><span class="line"><span class="keyword">const</span> c = <span class="keyword">new</span> Crawler(&#123;</span><br><span class="line">  maxConnections: <span class="number">10</span>,</span><br><span class="line">  callback: <span class="function">(<span class="params">error, res, done</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (error) &#123;</span><br><span class="line">      <span class="keyword">throw</span> error</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> $ = res.$</span><br><span class="line">    <span class="built_in">console</span>.log($(<span class="string">'title'</span>).text())</span><br><span class="line">    done()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">c.queue(&#123;</span><br><span class="line">  uri: <span class="string">'https://movie.douban.com/'</span>,</span><br><span class="line">  proxy: <span class="string">'http://user:pass@host:port'</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h1 id="处理原始返回数据"><a href="#处理原始返回数据" class="headerlink" title="处理原始返回数据"></a>处理原始返回数据</h1><p>在爬取图片、PDF文档等二进制文件时，需要对服务器返回的原始数据进行处理，此时需通过指定encoding参数为null来禁止Crawler将其转换为字节流，同时也需要将jQuery参数指定为false来禁止DOM元素提取。 下面是一个抓取图片并保存为本地图片的例子。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Crawler = <span class="built_in">require</span>(<span class="string">'crawler'</span>)</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</span><br><span class="line"><span class="keyword">const</span> c = <span class="keyword">new</span> Crawler(&#123;</span><br><span class="line">  encoding: <span class="literal">null</span>,</span><br><span class="line">  jQuery: <span class="literal">false</span>,</span><br><span class="line">  callback: <span class="function">(<span class="params">error, res, done</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (error) &#123;</span><br><span class="line">      <span class="keyword">throw</span> error</span><br><span class="line">    &#125;</span><br><span class="line">    fs.createWriteStream(res.options.filename).write(res.body)</span><br><span class="line">    done()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">c.queue(&#123;</span><br><span class="line">  uri: <span class="string">'https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/logo_white_fe6da1ec.png'</span>,</span><br><span class="line">  filename: <span class="string">'logo.png'</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h1 id="Crawler参数手册"><a href="#Crawler参数手册" class="headerlink" title="Crawler参数手册"></a>Crawler参数手册</h1><p>实例化Crawler的时候可配置相关的参数，参数将在全局范围内生效。如果你只想对单个请求配置独立的参数，你可以在调用queue()函数时覆盖参数。<br>Crawler使用了request库，所以Crawler可供配置的参数列表是request库的参数列表的超集，即request库中所有的配置在Crawler中均适用。</p>
+<h2 id="基本请求参数"><a href="#基本请求参数" class="headerlink" title="基本请求参数"></a>基本请求参数</h2><ul>
+<li>uri: String 想要爬取的站点的URL</li>
+<li>timeout : Number 超时时间（单位：毫秒，默认值15000）</li>
+<li>所有符合request包的参数均能兼容</li>
+</ul>
+<h2 id="回调函数"><a href="#回调函数" class="headerlink" title="回调函数"></a>回调函数</h2><ul>
+<li>callback(error, res, done): 请求完成后将被调用的回调函数<ul>
+<li>error: Error 错误信息</li>
+<li>res: http.IncomingMessage 服务器响应的数据资源合集<ul>
+<li>res.statusCode: Number HTTP状态码，正常返回 200</li>
+<li>res.body: Buffer | String HTTP响应实体部分</li>
+<li>res.headers: Object HTTP响应头部</li>
+<li>res.request: Request  Request 的一个实例（并非 http.ClientRequest）<ul>
+<li>res.request.uri: urlObject 处理后的URL的HTTP请求实体</li>
+<li>res.request.method: String HTTP 请求方法,例如 GET,POST</li>
+<li>res.request.headers: Object HTTP 请求头部</li>
+</ul>
+</li>
+<li>res.options: Options 此次请求的参数</li>
+<li>$: jQuery Selector HTML或XML文档的jQuery选择器</li>
+</ul>
+</li>
+<li>done: Function 在处理结束之后必须调用此函数</li>
+</ul>
+</li>
+</ul>
+<h2 id="调度参数"><a href="#调度参数" class="headerlink" title="调度参数"></a>调度参数</h2><ul>
+<li>maxConnections: Number 工作线程池的大小 (默认为 10).</li>
+<li>rateLimit: Number 两次请求之间的默认间隔时间 (默认为 0).</li>
+<li>priorityRange: Number 有效的优先值范围，从0开始 (默认为 10).</li>
+<li>priority: Number 请求的默认优先值 (默认为 5). 此值越低优先度越高</li>
+</ul>
+<h2 id="重试参数"><a href="#重试参数" class="headerlink" title="重试参数"></a>重试参数</h2><ul>
+<li>retries: Number 请求失败后的重试次数 (默认为 3),</li>
+<li>retryTimeout: Number 重试的默认等待时间，单位为毫秒 (默认为 10000).</li>
+</ul>
+<h2 id="DOM选项"><a href="#DOM选项" class="headerlink" title="DOM选项"></a>DOM选项</h2><p>jQuery: Boolean|String|Object 设置为true或者”cheerio”时，将使用 cheerio 作为解析器，并使用默认配置. 当然你也可以使用自定义配置的 cheerio 或使用符合 Parser options 的其它解析器。如果此值为false，将禁用注入jQuery选择器。 注意，如果你发现项目存在内存泄漏问题，请使用 “whacko” 作为解析器来避免这个问题你, “whacko” 是一个可以用来代替的解析器。 (默认为 true)</p>
+<h2 id="编码设置"><a href="#编码设置" class="headerlink" title="编码设置"></a>编码设置</h2><ul>
+<li>forceUTF8: Boolean 此值为 true 时，crawler 将会从HTTP头部或者meta标签提取字符编码，并将其强制转换为 UTF8格式。 再也不用为不同编码的问题操心了！ (默认为 true),</li>
+<li>incomingEncoding: String 一般和forceUTF8一起使用，设定此值将可以手动指定待转换的字符编码（默认为 null）。可以像这么使用： incomingEncoding : ‘windows-1255’。这里是支持的所有编码</li>
+</ul>
+<h2 id="缓存设置"><a href="#缓存设置" class="headerlink" title="缓存设置"></a>缓存设置</h2><p>skipDuplicates: Boolean 此值为 true 时，将跳过已经爬取的URI，且不会调用callback() (默认为 false)。 这不是推荐做法，更好的做法是在 Crawler 之外使用 seenreq 处理</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
+<li>rotateUA: Boolean 此值为 true 时, userAgent 应该是一个UA的Array，此时Crawler将在不同的请求中轮换UA。(默认为 false)</li>
+<li>userAgent: String|[Array] 如果 rotateUA 为 false, 且 userAgent 为 array, crawler 将使用array中的第一个UA。</li>
+<li>referer: String 设定此值将可以修改HTTP referer header</li>
+<li>queue(uri, options): 将任务加入队列，并等待其被执行<ul>
+<li>uri String</li>
+<li>options Options</li>
+</ul>
+</li>
+<li>queueSize: Number 当前队列长度，只读。</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -2111,7 +2338,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-03-21 11:25:00" itemprop="dateModified" datetime="2019-03-21T11:25:00+08:00">2019-03-21</time>
+                <time title="修改时间：2019-05-29 14:04:22" itemprop="dateModified" datetime="2019-05-29T14:04:22+08:00">2019-05-29</time>
               
             
           </span>
@@ -2334,191 +2561,13 @@ table th:first-of-type {
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://xuyangjia.github.io/2019/03/18/Chrome插件开发Demo/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Xuyang Jia">
-      <meta itemprop="description" content="Record something for review!">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Xuyang's blog.">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/18/Chrome插件开发Demo/" class="post-title-link" itemprop="url">Chrome插件开发Demo</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-03-18 22:13:36" itemprop="dateCreated datePublished" datetime="2019-03-18T22:13:36+08:00">2019-03-18</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-03-20 10:38:12" itemprop="dateModified" datetime="2019-03-20T10:38:12+08:00">2019-03-20</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Chrome/" itemprop="url" rel="index"><span itemprop="name">Chrome</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><img src="/images/chrome_extension.jpg" alt><br>对于一个前端developer来说，chrome插件的开发非常简单，几个简单的文件就能轻松搞定。</p>
-<h2 id="插件的目录结构"><a href="#插件的目录结构" class="headerlink" title="插件的目录结构"></a>插件的目录结构</h2>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">demo</span><br><span class="line"> - js 页面所引用的javascript文件。</span><br><span class="line">   - popup.js</span><br><span class="line">   - qrcode.min.js</span><br><span class="line"> - icon.png 显示图标。</span><br><span class="line"> - manifest.json 插件的配置文件，可看作插件的“入口”。</span><br><span class="line"> - popup.html 弹出页面。</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="创建一个目录-demo-，并在目录中创建配置文件manifest-json"><a href="#创建一个目录-demo-，并在目录中创建配置文件manifest-json" class="headerlink" title="创建一个目录(demo)，并在目录中创建配置文件manifest.json"></a>创建一个目录(demo)，并在目录中创建配置文件<strong>manifest.json</strong></h2>   <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"manifest_version"</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="attr">"name"</span>: <span class="string">"qrcode generator"</span>,</span><br><span class="line">    <span class="attr">"description"</span>: <span class="string">"二维码生成器"</span>,</span><br><span class="line">    <span class="attr">"version"</span>: <span class="string">"1.0"</span>,</span><br><span class="line">    <span class="attr">"browser_action"</span>: &#123;</span><br><span class="line">        <span class="attr">"default_icon"</span>: <span class="string">"icon.png"</span>,</span><br><span class="line">        <span class="attr">"default_popup"</span>: <span class="string">"popup.html"</span>,</span><br><span class="line">        <span class="attr">"default_title"</span>: <span class="string">"点这里生成当前页二维码！"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"content_security_policy"</span>: <span class="string">"script-src 'self'; object-src 'self'"</span>,</span><br><span class="line">    <span class="attr">"permissions"</span>: [<span class="string">"activeTab"</span>,<span class="string">"tabs"</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="创建弹出页面popup-html"><a href="#创建弹出页面popup-html" class="headerlink" title="创建弹出页面popup.html"></a>创建弹出页面<strong>popup.html</strong></h2>   <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"zh-CN"</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">title</span>&gt;</span>qrcode generator<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"js/qrcode.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"js/popup.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"width:150px; height:150px;"</span> <span class="attr">id</span>=<span class="string">"qrcode"</span>&gt;</span> <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="创建执行脚本popup-js"><a href="#创建执行脚本popup-js" class="headerlink" title="创建执行脚本popup.js"></a>创建执行脚本<strong>popup.js</strong></h2>   <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">load</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     <span class="built_in">window</span>.console.info(<span class="string">'ready.....'</span>);</span><br><span class="line"></span><br><span class="line">     <span class="comment">// 获取到当前激活态的 tab 对象</span></span><br><span class="line">     chrome.tabs.query(&#123;</span><br><span class="line">         <span class="string">"active"</span> : <span class="literal">true</span></span><br><span class="line">     &#125;, <span class="function"><span class="keyword">function</span>(<span class="params">tabArr</span>) </span>&#123;</span><br><span class="line">         <span class="keyword">var</span> tab = tabArr[<span class="number">0</span>];</span><br><span class="line">         <span class="built_in">window</span>.console.info(<span class="string">"title="</span> + tab.title);</span><br><span class="line">         <span class="built_in">window</span>.console.info(<span class="string">"url="</span> + tab.url);</span><br><span class="line"></span><br><span class="line">         <span class="keyword">var</span> qrcode = <span class="keyword">new</span> QRCode(<span class="built_in">document</span>.getElementById(<span class="string">"qrcode"</span>), &#123;</span><br><span class="line">             width : <span class="number">150</span>,</span><br><span class="line">             height : <span class="number">150</span>,</span><br><span class="line">             colorDark : <span class="string">"#000000"</span>,</span><br><span class="line">             colorLight : <span class="string">"#ffffff"</span>,</span><br><span class="line">             correctLevel : QRCode.CorrectLevel.H</span><br><span class="line">         &#125;);</span><br><span class="line"></span><br><span class="line">         qrcode.clear();</span><br><span class="line">         qrcode.makeCode(tab.url);</span><br><span class="line">     &#125;);</span><br><span class="line"> &#125;;</span><br><span class="line"> <span class="built_in">window</span>.onload = load();</span><br></pre></td></tr></table></figure>
-<p>   <strong>qrcode.min.js</strong>文件下载自<a href="http://davidshimjs.github.io/qrcodejs/" title="Cross-browser QRCode generator for javascript" target="_blank" rel="noopener">davidshimjs</a>.</p>
-<h2 id="验证插件是否可用"><a href="#验证插件是否可用" class="headerlink" title="验证插件是否可用"></a>验证插件是否可用</h2><p>   打开chrome扩展程序<strong><em>chrome://extensions/</em></strong>，选择<strong><em>开发者模式</em></strong>，选择<strong><em>已解压的扩展程序</em></strong>，选择demo目录，然后就看到插件<strong>二维码生成器</strong>已经成功加载了</p>
-<h2 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h2><p>   打开chrome扩展程序<strong><em>chrome://extensions/</em></strong>，选择<strong><em>开发者模式</em></strong>，选择<strong><em>打包扩展程序</em></strong>，如果打包失败，请根据错误提示信息修正，如果打包成功，会在与根目录同级的目录中生成CRX插件文件和PEM秘钥文件。</p>
-<h2 id="安装扩展程序"><a href="#安装扩展程序" class="headerlink" title="安装扩展程序"></a>安装扩展程序</h2><p>   打开chrome扩展程序<strong><em>chrome://extensions/</em></strong>，拖拽CRX文件进入到当前页面即可完成安装。</p>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a><a href="http://www.runoob.com/w3cnote/javascript-qrcodejs-library.html" target="_blank" rel="noopener">参考链接</a></h2>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
 
 
           </div>
@@ -2558,7 +2607,7 @@ table th:first-of-type {
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-count">11</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2612,9 +2661,7 @@ table th:first-of-type {
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-count">6</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
